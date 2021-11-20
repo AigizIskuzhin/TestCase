@@ -1,0 +1,36 @@
+﻿<Window x:Class="TestCase.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestCase"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer Name="Viewer" VerticalScrollBarVisibility="Hidden">
+            <Canvas HorizontalAlignment="Center" VerticalAlignment="Center" Name="Canvas" Background="Red" Width="1" Height="1"/>
+        </ScrollViewer>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="1.5*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Выбрать входные файлы" Padding="10px" Click="OnClickSelectInputFile"/>
+                    <Button Name="ShowMarkedPointsBtn" Content="Открыть список точек" Padding="10px" Click="OnClickOpenMarkedPointsList" Visibility="Hidden"/>
+                </StackPanel>
+                <TextBlock>
+                    Формат входных данных: ключ=x,y|x,y|x,y<LineBreak/>
+                    ключи: s, l (s-square, l-line)<LineBreak/>
+                    Пример: s=0,0|0,2|2,2|2,0<LineBreak/>
+                </TextBlock>
+            </StackPanel>
+            <ListBox Name="ListBox" Grid.Column="1" Height="100px"/>
+        </Grid>
+    </Grid>
+</Window>

@@ -47,7 +47,7 @@ namespace TestCase.Models
             ratioScaleX = ratioScaleX < 0 ? 1 : ratioScaleX;
             ratioScaleY = ratioScaleY < 0 ? 1 : ratioScaleY;
 
-            return ratioScaleY > ratioScaleX ? ratioScaleX*.6 : ratioScaleY*.6;
+            return ratioScaleY > ratioScaleX ? ratioScaleX * .6 : ratioScaleY * .6;
         }
     }
 }

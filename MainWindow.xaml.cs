@@ -4,12 +4,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using System.Windows.Threading;
 using TestCase.Models;
 
 namespace TestCase
@@ -78,6 +76,8 @@ namespace TestCase
             if (!Map.Items.Any())
             {
                 SetOutputResult("Файл с входными данными пуст");
+                ShowMarkedPointsBtn.Visibility = Visibility.Collapsed;
+                Canvas.Children.Clear();
                 return;
             }
             
@@ -92,8 +92,7 @@ namespace TestCase
             if (Canvas.Children.Count != 0)
             {
                 SetOutputResult("Успешный рендеринг карты");
-                if (ShowMarkedPointsBtn.Visibility == Visibility.Hidden)
-                    ShowMarkedPointsBtn.Visibility = Visibility.Visible;
+                ShowMarkedPointsBtn.Visibility = Visibility.Visible;
             }
 
         }

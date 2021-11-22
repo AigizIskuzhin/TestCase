@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestCase"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="TestCase" Height="700" Width="1200">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -25,7 +25,7 @@
                     <Button Name="ShowMarkedPointsBtn" Content="Открыть список точек" Padding="10px" Click="OnClickOpenMarkedPointsList" Visibility="Hidden"/>
                 </StackPanel>
                 <TextBlock>
-                    Формат входных данных: ключ=x,y|x,y|x,y<LineBreak/>
+                    Формат входных данных: ключ=x,y|x;y|x,y<LineBreak/>
                     ключи: s, l (s-square, l-line)<LineBreak/>
                     Пример: s=0,0|0,2|2,2|2,0<LineBreak/>
                 </TextBlock>

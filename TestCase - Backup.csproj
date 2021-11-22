@@ -5,11 +5,10 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <StartupObject>TestCase.App</StartupObject>
-    <RepositoryUrl>https://github.com/AigizIskuzhin/TestCase</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <Prefer32Bit>false</Prefer32Bit>
+    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
 
 </Project>

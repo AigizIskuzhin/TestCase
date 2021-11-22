@@ -35,12 +35,12 @@ namespace TestCase.Models
 
                     if (Points.Count == 4)
                     {
-                        //проверка по часовой
-                        if (IsPointInSquare(lineSegment.Start, Points))
-                        {
-                            line.Segments[i] = new Segment(lineSegment.Start, lineSegment.End, true);
-                            continue;
-                        }
+                        ////проверка по часовой
+                        //if (IsPointInSquare(lineSegment.Start, Points))
+                        //{
+                        //    line.Segments[i] = new Segment(lineSegment.Start, lineSegment.End, true);
+                        //    continue;
+                        //}
                     }
 
                     // если не прошли проверки по часовой, пройтись по этому алгоритму
@@ -62,12 +62,12 @@ namespace TestCase.Models
             // из-за неправильной обработки данных, приходится обрабатывать все случаи
             if (IsSegmentsIntersect(A.Start, A.End, B.Start, B.End))
                 return true;
-            if (IsSegmentsIntersect(A.Start, A.End, B.End, B.Start))
-                return true;
-            if (IsSegmentsIntersect(A.End, A.Start, B.End, B.Start))
-                return true;
-            if (IsSegmentsIntersect(A.End, A.Start, B.Start, B.End))
-                return true;
+            //if (IsSegmentsIntersect(A.Start, A.End, B.End, B.Start))
+            //    return true;
+            //if (IsSegmentsIntersect(A.End, A.Start, B.End, B.Start))
+            //    return true;
+            //if (IsSegmentsIntersect(A.End, A.Start, B.Start, B.End))
+            //    return true;
             return false;
         }
         private bool IsSegmentsIntersect(Cord p1, Cord p2, Cord p3, Cord p4)

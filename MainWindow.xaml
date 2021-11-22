@@ -16,8 +16,8 @@
         </ScrollViewer>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="1.5*"/>
             </Grid.ColumnDefinitions>
             <StackPanel>
                 <StackPanel Orientation="Horizontal">

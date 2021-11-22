@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using TestCase.Models;
 
 namespace TestCase
@@ -134,35 +136,46 @@ namespace TestCase
             };
 
             var linesLength = lines.Length;
+            MapItem currentItem = null;
             for (int i = 0; i < linesLength; i++)
             {
-                // убираем пробелы, пытаемся сформировать входные данные по делителю
-                // Ключ = Координаты x,y|x,y
-                var data = lines[i].Replace(" ", "").Split('=');
+                var stroke = lines[i].Replace(" ", "");
 
-                // пропускаем строку, если формат данных не соблюден
-                if (data.Length != 2)
+                string pointsStroke = stroke;
+                if(stroke.Contains("="))
                 {
-                    SetOutputResult("Неверный формат данных КЛЮЧ=x,y|x,y. Строка: "+(i+1));
+                    // убираем пробелы, пытаемся сформировать входные данные по делителю
+                    // Ключ = Координаты x,y|x,y
+                    var data = stroke.Split('=');
+
+                    // пропускаем строку, если формат данных не соблюден
+                    if (data.Length != 2)
+                    {
+                        SetOutputResult("Неверный формат данных КЛЮЧ=x,y|x,y. Строка: " + (i + 1));
+                        continue;
+                    }
+
+                    // читаем ключ и создаем соответствующий элемент, иначе пропускаем строку
+                    switch (data[0])
+                    {
+                        case "s":
+                            currentItem = new SquareItem();
+                            break;
+                        case "l":
+                            currentItem = new LineItem();
+                            break;
+                        default:
+                            SetOutputResult("Неверный формат ключа, строка [" + (i + 1) + "] пропущена");
+                            continue;
+                    }
+                    pointsStroke=data[1];
+                }
+                else if (currentItem == null)
+                {
+                    SetOutputResult("Не удалось обнаружить разделитель, текущий элемент пуст поэтому строка [" + (i + 1) + "] пропущена");
                     continue;
                 }
-                
-                MapItem currentItem;
-                // читаем ключ и создаем соответствующий элемент, иначе пропускаем строку
-                switch (data[0])
-                {
-                    case "s":
-                        currentItem = new SquareItem();
-                        break;
-                    case "l":
-                        currentItem = new LineItem();
-                        break;
-                    default:
-                        SetOutputResult("Неверный формат ключа, строка ["+(i+1)+"] пропущена");
-                        continue;
-                }
-
-                var pointsStroke = data[1];
+                else SetOutputResult("Не удалось обнаружить разделитель, строка [" + (i + 1) + "] будет добавлена к предыдущему элементу");
 
                 // получаем координаты, заранее очистив неверные делители |x,y|x,y| => x,y|x,y
                 var points = pointsStroke.Trim('|').Split('|');
@@ -176,7 +189,7 @@ namespace TestCase
                 Cord lastPoint = null;
                 for (int j = 0; j < len; j++)
                 {
-                    var point = points[j].Split(',');
+                    var point = points[j].Split(',',';');
 
                     // Если ячейка, хранящая координату не соответствует формату x,y, то пропускаем
                     if (point.Length != 2)
@@ -184,7 +197,7 @@ namespace TestCase
                         SetOutputResult("Неверный формат ячейки координат, строка ["+i+++"], ячейка ["+j+++"] пропущена");
                         continue;
                     }
-                    
+
                     // Проверка на числовые значения
                     if (!float.TryParse(point[0], out var x) || !float.TryParse(point[1], out var y))
                     {
